@@ -1,0 +1,272 @@
+<div class="row">
+	<div class="col-md-12">
+	<p class="pull-right">
+		<a href="/admin/products/" class="btn btn-danger"><i class="fa fa-close"></i> Cancel</a>
+	</p>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-12">
+		<div class="row">
+			<form class="form" id="ajax_images" action="/admin/products/ajaxs/images/{{input._id}}" method="POST" enctype="multipart/form-data">
+									<div class="form-group">
+										<input name="files" type="file" multiple="" class="form-control" />
+									</div>
+									<div class="form-group">
+										<button class="btn btn-lg btn-success"><i class="fa fa-upload"></i> Upload product Images</button>
+									</div>
+								</form>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+	var form = document.getElementById('ajax_images');
+	//var form = document.querySelector('form');
+	var request = new XMLHttpRequest();
+
+	//progress
+	request.upload.addEventListener('progress', function(e){
+		console.log(e.loaded/e.total*100 + ' %');
+	}, false);
+
+	//complete
+	request.addEventListener('load', function(e){
+		console.log(JSON.parse(e.target.responseText));
+	});
+
+	form.addEventListener('submit', function(e){
+		e.preventDefault();
+
+		//all data fetch to a var
+		var formData = new FormData(form);
+		request.open('post','submit');
+		request.send(formData);
+	});
+</script>
+
+<div class="row">
+	
+	<div class="col-md-12">
+		<div class="panel panel-info">
+			<div class="panel-heading">
+			<h5 style="font-size:1.2em;">{{#if update}}Updating an existing{{else}}Create a new{{/if}} product form</h5>
+			</div>
+			<div class="panel-body">
+
+				{{#if updateX}}
+				<ul class="nav nav-tabs nav-justified">
+				  <li role="presentation" class="active"><a href="#"><b><i class="fa fa-edit"></i></b> Product Info</a></li>
+				  <li role="presentation"><a href="#"><b><i class="fa fa-file-image-o"></i></b> Product Images</a></li>
+				</ul>
+				&nbsp;
+				{{/if}}
+
+				{{#if success}}
+				<div class="alert alert-success"><b><i class="fa fa-check"></i></b> {{success}}</div>
+				{{/if}}
+
+				{{#if error}}
+				<div class="alert alert-danger">
+					<b><i class="fa fa-exclamation-triangle"></i></b> Oops! Looks like you have an error in your form!
+				</div>
+				{{/if}}
+
+				<form action="/admin/products/{{#if update}}update/{{input._id}}{{else}}create{{/if}}" method="POST" class="form">
+				{{#if update}}
+				<input type="hidden" name="_id" value="{{input._id}}" />
+				{{/if}}
+				<div class="row">
+						
+					<div class="col-md-4">		
+						
+						<div class="form-group {{#if error.sku.message}}has-error{{/if}}">
+							<label for="sku">SKU</label>
+							<input type="text" name="sku" id="sku" class="form-control input-md" required placeholder="SKU-123" value="{{input.sku}}" />
+							{{#if error.sku.message}}
+							<p class="text text-danger">{{error.sku.message}}</p>
+							{{/if}}
+						</div>
+
+						<div class="form-group {{#if error.name.message}}has-error{{/if}}">
+							<label for="name">Product Name</label>
+							<input type="text" name="name" id="name" class="form-control input-md" required placeholder="product name" value="{{input.name}}" />
+							{{#if error.name.message}}
+							<p class="text text-danger">{{error.name.message}}</p>
+							{{/if}}
+						</div>
+
+						<div class="form-group {{#if error.category.message}}has-error{{/if}}">
+							<label for="category">Product Category</label>
+							<input type="text" name="category" required id="category" class="form-control input-md" placeholder="category" value="{{input.category}}" />
+							{{#if error.category.message}}
+							<p class="text text-danger">{{error.category.message}}</p>
+							{{/if}}
+						</div>
+
+						<div class="form-group">
+							<label for="parent_sku">Parent SKU</label>
+							<input type="text" name="parent_sku" id="" class="form-control input-md" value="{{input.parent_sku}}" />
+						</div>
+
+						<div class="form-group">
+							<label for="">Minimum Qty per order</label>
+							<input type="text" name="minimum_qty_per_order" id="" class="form-control input-md" value="{{#if input.minimum_qty_per_order}}{{input.minimum_qty_per_order}}{{else}}1{{/if}}" />
+						</div>
+
+						<div class="form-group {{#if error.price.message}}has-error{{/if}}">
+							<label for="price">Price</label>
+							<input type="text" name="price" id="" class="form-control input-md" placeholder="RETAIL:20 , WHOLESALE:15" required value="{{#if update}}{{input.prices}}{{else}}{{input.price}}{{/if}}" />
+							{{#if error.price.message}}
+							<p class="text text-danger">{{error.price.message}}</p>
+							{{/if}}
+						</div>
+
+						<div class="form-group" style="display:none;">
+							<label for="">Price per Quantity</label>
+							<em style="font-size:0.8em">Example. <b>0-19:15 , 20-50:10</b></em>
+							<textarea name="price_per_qty" class="form-control" rows="2" placeholer="">{{input.price_per_qty}}</textarea>
+						</div>
+					</div>
+
+
+					<div class="col-md-4">	
+
+						<div class="form-group">
+							<label for="">Brand</label>
+							<input type="text" name="brand" id="" class="form-control input-md" value="{{input.brand}}" />
+						</div>
+
+						<div class="form-group">
+							<label for="">Available Stock</label>
+							<input type="text" name="stock" id="" class="form-control input-md" value="{{#if input.stock}}{{input.stock}}{{else}}1{{/if}}" />
+						</div>
+
+
+						<div class="form-group">
+							<label for="prod_height">Height</label>
+							<input type="text" name="prod_height" id="" class="form-control input-md" value="{{input.prod_height}}" />
+						</div>
+
+						<div class="form-group">
+							<label for="prod_width">Width</label>
+							<input type="text" name="prod_width" id="" class="form-control input-md" value="{{input.prod_width}}" />
+						</div>
+
+						<div class="form-group">
+							<label for="prod_length">Length</label>
+							<input type="text" name="prod_length" id="" class="form-control input-md" value="{{input.prod_length}}" />
+						</div>
+
+						<div class="form-group">
+							<label for="prod_weight">Weight</label>
+							<input type="text" name="prod_weight" id="" class="form-control input-md" value="{{input.prod_weight}}" />
+						</div>
+
+					</div>
+
+					<div class="col-md-4">
+						<div class="form-group {{#if error.price.message}}has-error{{/if}}">
+							<label for="">Short Description</label>
+							<textarea name="short_desc" required class="form-control" rows="2">{{input.short_desc}}</textarea>
+							{{#if error.short_desc.message}}
+							<p class="text text-danger">{{error.short_desc.message}}</p>
+							{{/if}}
+						</div>
+
+						<div class="form-group">
+							<label for="">Long Description</label>
+							<textarea name="long_desc" class="form-control" rows="4">{{input.long_desc}}</textarea>
+						</div>
+
+						<div class="form-group">
+							<label for="title">Metadata Title:</label>
+							<input type="text" name="title" id="" class="form-control input-md" value="{{input.title}}" />
+						</div>
+
+						<div class="form-group">
+							<label for="keyword">Metadata Keyword:</label>
+							<input type="text" name="keyword" id="" class="form-control input-md" value="{{input.keyword}}" />
+						</div>
+
+						<div class="form-group">
+							<label for="description">Metadata Description:</label>
+							<input type="text" name="description" id="" class="form-control input-md" value="{{input.description}}" />
+						</div>
+					</div>
+
+					
+				</div>
+
+				<div class="row">
+					<div class="col-md-4">
+						<input type="submit" value="Save Product" class="btn btn-block btn-success">
+					</div>
+				</div>
+
+				</form>
+
+				<p>&nbsp;</p>
+				{{#if update}}
+				<div class="row">
+					<div class="col-md-12">
+						<div class="panel panel-default">
+							<div class="panel-body">
+								<h4><i class="fa fa-image-o"></i> Product images</h4>
+								<hr/>
+								<h5>Product thumbnail</h5>
+								<div class="row">
+									<div class="col-md-2">
+										{{#if input.image.thumbnail}}
+											<img width="100%" src="../../../../uploads/{{tenant_domain}}/{{input.image.thumbnail}}">
+										{{else}}
+										<h5 align="center"><b>No image thumbnail</b></h5>
+										{{/if}}
+									</div>
+									<div class="col-md-10">
+										<form class="form" action="/admin/products/thumbnail/{{input._id}}" method="POST" enctype="multipart/form-data">
+											<div class="form-group">
+												<input name="files" type="file"  class="form-control" />
+											</div>
+											<div class="form-group">
+												<button class="btn btn-lg btn-success"><i class="fa fa-upload"></i> Upload product thumbnail</button>
+											</div>
+										</form>
+									</div>
+								</div>
+										
+								<hr/>
+
+								<h5>Other Images</h5>
+								<form class="form" action="/admin/products/images/{{input._id}}" method="POST" enctype="multipart/form-data">
+									<div class="form-group">
+										<input name="files" type="file" multiple="" class="form-control" />
+									</div>
+									<div class="form-group">
+										<button class="btn btn-lg btn-success"><i class="fa fa-upload"></i> Upload product Images</button>
+									</div>
+								</form>
+								<hr/>
+								{{#if input.image.images}}
+									{{#each input.image.images}}
+										<p>
+											<img width="100%" src="../../../../uploads/{{../tenant_domain}}/{{this}}">
+										</p>
+									{{/each}}
+								{{/if}}
+							</div>
+						</div>
+					</div>
+				</div>
+				{{/if}}
+
+
+
+			</div>
+		</div>
+	</div>
+</div>
+
+
+				

@@ -1,0 +1,71 @@
+<div class="row">
+	<div class="col-md-6 col-md-offset-3">
+		<div class="panel panel-info">
+			<div class="panel-heading">
+				<h4>Creating New Backend Use</h4>
+			</div>
+			<div class="panel-body">
+				{{#if error}}
+				<div class="alert alert-danger">
+					Oops! Looks like you have an error in your form!
+				</div>
+				{{/if}}
+				<form method="POST" class="form form-vertical" action="/admin/register">
+					<div class="form-group {{#if error.first_name.message}}has-error{{/if}}">
+						<label for="first_name">First name : </label>
+						<input name="first_name" class="form-control" placeholder="First Name" required value="{{input.first_name}}" />
+						{{#if error.first_name.message}}
+						<p class="text text-danger">{{error.first_name.message}}</p>
+						{{/if}}
+					</div>
+
+					<div class="form-group {{#if error.last_name.message}}has-error{{/if}}">
+						<label for="last_name">Last name : </label>
+						<input name="last_name" class="form-control" placeholder="Last Name" required value="{{input.last_name}}" />
+						{{#if error.last_name.message}}
+						<p class="text text-danger">{{error.last_name.message}}</p>
+						{{/if}}
+					</div>
+
+					<div class="form-group {{#if error.email.message}}has-error{{/if}}">
+						<label for="email">Email : </label>
+						<input type="emailm" name="email" class="form-control" placeholder="Email" required value="{{input.email}}" />
+						{{#if error.email.message}}
+						<p class="text text-danger">{{error.email.message}}</p>
+						{{/if}}
+					</div>
+
+					<div class="form-group {{#if error.password.message}}has-error{{/if}}">
+						<label for="password">Password :</label>
+						<input name="password" type="password" class="form-control" placeholder="password" />
+						{{#if error.password.message}}
+						<p class="text text-danger">{{error.password.message}}</p>
+						{{/if}}
+					</div>
+
+					<div class="form-group {{#if error.account.role}}has-error{{/if}}">
+						<label for="role">User Role : </label>
+						<select class="form-control" name="role" required>
+							<option value="1">Staff</option>
+							<option value="2">Admin</option>
+						</select>
+						{{#if error.account.role}}
+						<p class="text text-danger">{{error.account.role}}</p>
+						{{/if}}
+					</div>
+
+					<div class="form-group">
+						<div class="row">
+							<div class="col-md-4">
+								<input type="submit" value="Create my account" class="btn btn-info btn-block" />					
+							</div>
+						</div>
+						
+
+					</div>
+				</form>
+			</div>
+		</div>
+				
+	</div>
+</div>

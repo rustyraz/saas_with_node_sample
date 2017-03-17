@@ -1,0 +1,232 @@
+<div class="row">
+	<div class="col-md-12">
+	<p class="pull-right">
+		<a href="/admin/customers/" class="btn btn-danger"><i class="fa fa-close"></i> Cancel</a>
+	</p>
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-12">
+		<div class="panel panel-info">
+			<div class="panel-heading">
+				<h4>{{#if update}}Updating customers information{{else}}Creating New Customer{{/if}}</h4>
+			</div>
+			<div class="panel-body">
+				{{#if success}}
+				<div class="alert alert-success"><b><i class="fa fa-check"></i></b> {{success}}</div>
+				{{/if}}
+
+				{{#if error}}
+				<div class="alert alert-danger">
+					<b><i class="fa fa-exclamation-triangle"></i></b> Oops! Looks like you have an error in your form!
+				</div>
+				{{/if}}
+
+				<form method="POST" class="form form-vertical" action="/admin/customers/{{#if update}}edit/{{input._id}}{{else}}create{{/if}}">
+
+
+				<div class="row">
+					<div class="col-md-4">
+						<div class="form-group {{#if error.profile.first_name.message}}has-error{{/if}}">
+							<label for="first_name">First name : </label>
+							<input name="first_name" class="form-control" placeholder="First Name" required value="{{input.first_name}}" />
+							{{#if error.profile.first_name.message}}
+							<p class="text text-danger">{{error.profile.first_name.message}}</p>
+							{{/if}}
+						</div>
+
+						<div class="form-group {{#if error.profile.last_name.message}}has-error{{/if}}">
+							<label for="last_name">Last name : </label>
+							<input name="last_name" class="form-control" placeholder="Last Name" required value="{{input.last_name}}" />
+							{{#if error.last_name.message}}
+							<p class="text text-danger">{{error.profile.last_name.message}}</p>
+							{{/if}}
+						</div>
+
+						<div class="form-group {{#if error.email.message}}has-error{{/if}}">
+							<label for="email">Email : </label>
+							<input type="email" name="email" class="form-control" placeholder="Email" required value="{{input.email}}" />
+							{{#if error.email.message}}
+							<p class="text text-danger">{{error.email.message}}</p>
+							{{/if}}
+						</div>
+
+						{{#if update}}
+
+						{{else}}
+						<div class="form-group {{#if error.password.message}}has-error{{/if}}">
+							<label for="password">Password :</label>
+							<input name="password" type="password" class="form-control" placeholder="password" />
+							{{#if error.password.message}}
+							<p class="text text-danger">{{error.password.message}}</p>
+							{{/if}}
+						</div>
+
+						<div class="form-group {{#if error.account.role}}has-error{{/if}}">
+							<label for="role">User Role : </label>
+							<select class="form-control" name="role" required>
+								<option value="0">Customer</option>
+							</select>
+							{{#if error.account.role}}
+							<p class="text text-danger">{{error.account.role}}</p>
+							{{/if}}
+						</div>
+
+						{{/if}}
+
+
+						<div class="form-group {{#if error.profile.phone_number.message}}has-error{{/if}}">
+							<label for="phone">Phone Number : </label>
+							<input type="tel" name="phone_mumber" class="form-control" placeholder="Email" required value="{{input.phone_number}}" />
+							{{#if error.profile.phone_number.message}}
+							<p class="text text-danger">{{error.profile.phone_number.message}}</p>
+							{{/if}}
+						</div>
+
+						<div class="form-group {{#if error.profile.fax.message}}has-error{{/if}}">
+							<label for="fax">Fax : </label>
+							<input type="fax" name="fax" class="form-control" placeholder="Fax" value="{{input.profile.fax}}" />
+							{{#if error.profile.fax.message}}
+							<p class="text text-danger">{{error.profile.fax.message}}</p>
+							{{/if}}
+						</div>
+
+						<div class="form-group {{#if error.profile.company.message}}has-error{{/if}}">
+							<label for="company">Business/Company Name : </label>
+							<input type="text" name="company" class="form-control" placeholder="Business / Company Name" value="{{input.profile.company}}" />
+							{{#if error.profile.company.message}}
+							<p class="text text-danger">{{error.profile.company.message}}</p>
+							{{/if}}
+						</div>
+
+					</div>
+					<div class="col-md-4">
+						<div class="form-group {{#if error.address.zipcode.message}}has-error{{/if}}">
+							<label for="zipcode">Zipcode : </label>
+							<input type="text" name="zipcode" class="form-control" placeholder="Zipcode" value="{{input.address.zipcode}}" />
+							{{#if error.address.zipcode.message}}
+							<p class="text text-danger">{{error.address.zipcode.message}}</p>
+							{{/if}}
+						</div>
+
+						<div class="form-group {{#if error.address.street.message}}has-error{{/if}}">
+							<label for="street">Street Address : </label>
+							<input type="text" name="street" class="form-control" placeholder="Street address" value="{{input.address.street}}" />
+							{{#if error.address.street.message}}
+							<p class="text text-danger">{{error.address.street.message}}</p>
+							{{/if}}
+						</div>
+
+						<div class="form-group {{#if error.address.city.message}}has-error{{/if}}">
+							<label for="city">City : </label>
+							<input type="text" name="city" class="form-control" placeholder="City" value="{{input.address.city}}" />
+							{{#if error.address.city.message}}
+							<p class="text text-danger">{{error.address.city.message}}</p>
+							{{/if}}
+						</div>
+
+						<div class="form-group {{#if error.address.state.message}}has-error{{/if}}">
+							<label for="state">State : </label>
+							<input type="text" name="state" class="form-control" placeholder="State" value="{{input.address.state}}" />
+							{{#if error.address.state.message}}
+							<p class="text text-danger">{{error.address.state.message}}</p>
+							{{/if}}
+						</div>
+
+						<div class="form-group {{#if error.address.country.message}}has-error{{/if}}">
+							<label for="country">Country : </label>
+							<input type="text" name="country" class="form-control" placeholder="Country" value="{{input.address.country}}" />
+							{{#if error.address.country.message}}
+							<p class="text text-danger">{{error.address.country.message}}</p>
+							{{/if}}
+						</div>
+
+						<div class="form-group {{#if error.account.terms.message}}has-error{{/if}}">
+							<label for="terms">Terms : </label>
+							<input type="text" name="terms" class="form-control" placeholder="Terms" value="{{input.account.terms}}" />
+							{{#if error.account.terms.message}}
+							<p class="text text-danger">{{error.account.terms.message}}</p>
+							{{/if}}
+						</div>
+
+					</div>
+
+					<div class="col-md-4">
+						<div class="form-group {{#if error.account.pay_on_checkout.message}}has-error{{/if}}">
+							<label for="active">Pay on checkout : </label>
+							<select class="form-control" name="pay_on_checkout">
+								<option value="0" {{#if input.pay_on_checkout_yes}}selected{{/if}}>YES</option>
+								<option value="1" {{#if pay_on_checkout_no}}selected{{/if}}>NO</option>
+							</select>
+							{{#if error.account.pay_on_checkout.message}}
+							<p class="text text-danger">{{error.account.pay_on_checkout.message}}</p>
+							{{/if}}
+						</div>
+
+						<div class="form-group {{#if error.account.active.message}}has-error{{/if}}">
+							<label for="active">Account status : </label>
+							<select class="form-control" name="account_active">
+								<option value="0" {{#if input.account_active}}selected{{/if}}>ACTIVE</option>
+								<option value="1" {{#if input.account_disabled}}selected{{/if}}>DISABLED</option>
+							</select>
+							{{#if error.account.active.message}}
+							<p class="text text-danger">{{error.account.active.message}}</p>
+							{{/if}}
+						</div>
+
+						<div class="form-group {{#if error.account.customer_group}}has-error{{/if}}">
+							<label for="customer_group">Customer Group :</label>
+							<select class="form-control" name="customer_group">
+								<option value="WHOLESALE" {{#if customer_group_WHOLESALE}}selected{{/if}}>WHOLESALE</option>
+								<option value="RETAIL" {{#if customer_group_RETAIL}}selected{{/if}}>RETAIL</option>
+							</select>
+							{{#if error.account.customer_group.message}}
+							<p class="text text-danger">{{error.account.customer_group.message}}</p>
+							{{/if}}
+						</div>
+
+						<div class="form-group {{#if error.account.notes}}has-error{{/if}}">
+							<label for="customer_group">Admin Notes :</label>
+							<textarea name="notes" rows="5" class="form-control"></textarea>
+							{{#if error.account.notes.message}}
+							<p class="text text-danger">{{error.account.notes.message}}</p>
+							{{/if}}
+						</div>
+
+						<div class="form-group {{#if error.account.assigned_sales_person.message}}has-error{{/if}}">
+							<label for="assigned_sales_person">Email of assigend sales person : </label>
+							<input type="email" name="assigned_sales_person" class="form-control" placeholder="Sales person email" value="{{input.account.assigned_sales_person}}" />
+							{{#if error.account.assigned_sales_person.message}}
+							<p class="text text-danger">{{error.account.assigned_sales_person.message}}</p>
+							{{/if}}
+						</div>
+
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<div class="form-group">
+							<div class="row">
+								<div class="col-md-4">
+									<input type="submit" value="{{#if update}}Update account{{else}}Create customers account{{/if}}" class="btn btn-info btn-block" />					
+								</div>
+							</div>
+							
+
+						</div>
+					</div>
+				</div>
+
+						
+
+				
+
+						
+				</form>
+			</div>
+		</div>
+				
+	</div>
+
+	
+</div>

@@ -1,0 +1,63 @@
+<div class="row">
+	<div class="col-md-12">
+	<p class="pull-right">
+		<a href="/admin/products/" class="btn btn-danger"><i class="fa fa-close"></i> Cancel</a>
+	</p>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-12">
+		<div class="row">
+			<form class="form" id="ajax_images" action="/admin/products/ajax/images/{{input._id}}" method="POST" enctype="multipart/form-data">
+									<div class="form-group">
+										<input name="files" id="files" type="file" multiple="" class="form-control" />
+									</div>
+									<div class="form-group">
+										<button class="btn btn-lg btn-success"><i class="fa fa-upload"></i> Upload product Images</button>
+									</div>
+								</form>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+	/*var form = document.getElementById('ajax_images');
+	//var form = document.querySelector('form');
+	var request = new XMLHttpRequest();
+
+	//progress
+	request.upload.addEventListener('progress', function(e){
+		console.log(e.loaded/e.total*100 + ' %');
+	}, false);
+
+	//complete
+	request.addEventListener('load', function(e){
+		console.log(JSON.parse(e.target.responseText));
+	});
+
+	form.addEventListener('submit', function(e){
+		e.preventDefault();
+
+		//all data fetch to a var
+		var formData = new FormData(form);
+		request.open('POST', form.getAttribute('action'), true);
+		request.send(formData);
+	});*/
+
+
+
+
+</script>
+
+<div class="row">
+	<div class="col-md-12">
+		{{#if input.image.images}}
+									{{#each input.image.images}}
+										<p>
+											<img width="100%" src="../../../../../uploads/{{../tenant_domain}}/{{this}}">
+										</p>
+									{{/each}}
+								{{/if}}
+	</div>
+</div>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{#if title}}{{title}} - {{/if}} Online store : Peter Ngerere</title>
+
+    <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+  	<nav class="navbar navbar-default navbar-static-top">
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Show Menu</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">
+      {{#if tenant_name}}{{tenant_name}} {{/if}}
+      </a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        {{#if first_name}}
+        <li {{#if currently_on_orders_page}}class="active"{{/if}}><a href="/orders">Orders <span class="sr-only">(current)</span></a></li>
+
+        {{/if}}
+
+        {{#if admin_route}}
+          {{#if admin_first_name}}
+            <li {{#if currently_on_customers_page}}class="active"{{/if}}><a href="/admin/customers"><i class="fa fa-users"> </i> Customers</a></li>
+            <li {{#if currently_on_products_page}}class="active"{{/if}}><a href="/admin/products"><i class="fa fa-qrcode"> </i> Products</a></li>
+            <li {{#if currently_on_orders_page}}class="active"{{/if}}><a href="/admin/orders"><i class="fa fa-shopping-cart"></i> Orders</a></li>
+            <li {{#if currently_on_reports_page}}class="active"{{/if}}><a href="/admin/reports"><i class="fa fa-bar-chart"></i> Reports</a></li>
+            <li {{#if currently_on_settings_page}}class="active"{{/if}}><a href="/admin/settings"><i class="fa fa-gears"></i> Settings</a></li>
+          {{/if}}
+        {{/if}}
+        
+        
+      </ul>
+      
+
+      <ul class="nav navbar-nav navbar-right">
+
+        {{#if admin_route}}
+          {{#if admin_first_name}}
+            <li {{#if currently_on_inbox_page}}class="active"{{/if}}><a href="/admin/system-settings"><i class="fa fa-bell"></i> Notifications <span style="background:red !important; " class="badge">1</span></a></li>
+            
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-user"></i>
+               {{admin_first_name}} 
+              <span class="caret"></span></a>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href="/admin/profile/">Profile</a></li>
+                <li class="divider"></li>
+                <li><a href="/admin/logout/">Logout</a></li>
+              </ul>
+            </li>
+          {{else}}
+            <li {{#if currently_on_login_page}}class="active"{{/if}}><a href="/admin/login">Login</a></li>
+          {{/if}}
+
+
+        {{else}}
+            {{#if first_name}}
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+               {{first_name}} 
+              <span class="caret"></span></a>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href="/user/profile/">Profile</a></li>
+                <li class="divider"></li>
+                <li><a href="/user/logout/">Logout</a></li>
+              </ul>
+            </li>
+            {{else}}
+            <li {{#if currently_on_login_page}}class="active"{{/if}}><a href="/user/login">Login</a></li>
+            <li {{#if currently_on_registration_page}}class="active"{{/if}}><a href="/user/register">Register</a></li>
+            {{/if}}
+        {{/if}}
+        
+            
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+  	<div class="container">
+  		{{{body}}}
+  	</div>
+    
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+    {{#if admin_route}}
+      {{#if currently_on_products_page}}
+      <script type="text/javascript" src="../../../../javascripts/admin/products.js"></script>
+      {{/if}}
+    {{/if}}
+
+    
+  </body>
+</html>
